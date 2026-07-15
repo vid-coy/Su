@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CDN.VIDEY.UY</title>
+    <style>
+        * { box-sizing: border-box }
+        body {    
+            margin: 0;    
+            background: #0a0a0a;    
+            color: #e5e7eb;    
+            font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;    
+            min-height: 100vh;    
+            display: flex;    
+            justify-content: center;    
+            align-items: center;
+        }
+        .wrapper {    
+            width: 100%;    
+            max-width: 960px;    
+            padding: 14px;    
+            display: flex;    
+            flex-direction: column;    
+            align-items: center;    
+            gap: 14px;
+        }
+        .player-box {    
+            width: 100%;    
+            background: #000;    
+            border-radius: 6px;    
+            overflow: hidden;
+        }
+        video {    
+            width: 100%;    
+            display: block;    
+            background: #000;
+        }
+        .banner-ad {    
+            max-width: 100%;    
+            overflow: hidden;    
+            display: flex;    
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="player-box">
+        <video id="myVideo" controls playsinline preload="metadata">
+            <source src="https://cdn2.videy.co/W7ju6xeN1.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="banner-ad"></div>
+</div>
+
+<script type="text/javascript">
+    var _Hasync = _Hasync || [];
+    _Hasync.push(['Histats.start', '1,5034243,4,107,170,20,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+      var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+      hs.src = ('//s10.histats.com/js15_as.js');
+      (document.head || document.body).appendChild(hs);
+    })();
+</script>
+<noscript>
+    <a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?5034243&101" alt="Histats"></a>
+</noscript>
+
+<script>
+    (function() {
+        var adUrl = "https://www.effectivecpmnetwork.com/pvyi1k3siy?key=bcf6e71cfb6afac02ccad4f663f5fc87";
+        var cooldownTime = 60000; // Jeda 1 menit
+
+        function executePopunder(e) {
+            var currentTime = new Date().getTime();
+            var lastAdTime = localStorage.getItem('lastPopunderTime');
+
+            // Cek cooldown semisal user klik berkali-kali
+            if (lastAdTime && (currentTime - lastAdTime < cooldownTime)) {
+                return; 
+            }
+
+            var currentUrl = window.location.href;
+            
+            // 1. Buka halaman video ini di tab baru (User akan merasa tetap di halaman video)
+            var newTab = window.open(currentUrl, '_blank');
+            
+            if (newTab) {
+                localStorage.setItem('lastPopunderTime', currentTime);
+                
+                // 2. Ubah halaman utama/tab lama menjadi iklan secara instan
+                window.location.href = adUrl;
+            }
+        }
+
+        // TRIGGER 1: Klik di mana saja pada halaman (PC)
+        document.addEventListener('click', function(e) {
+            // Cegah double trigger jika yang diklik adalah video (biar diurus oleh event video)
+            if(e.target.tagName !== 'VIDEO') {
+                executePopunder(e);
+            }
+        }, { capture: false });
+
+        // TRIGGER 2 & 3: Khusus pada tombol Play / interaksi Video (Paling efektif di HP)
+        var videoElement = document.getElementById('myVideo');
+        if (videoElement) {
+            // Saat user menekan tombol PLAY (PC & HP)
+            videoElement.addEventListener('play', executePopunder);
+            
+            // Saat user menyentuh video di HP
+            videoElement.addEventListener('touchstart', executePopunder, { passive: true });
+        }
+    })();
+</script>
+
+</body>
+</html>
